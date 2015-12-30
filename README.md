@@ -182,7 +182,7 @@
     cn::sharesdk::C2DXShareSDK::registerAppAndSetPlatformConfig("8e3320a36606", totalDict); 
 ```
 
-* [以上平台的app_key、app_secret等字段不同分享平台可能不同，详情可参考：统一表](#SocialConfiguration)
+[以上平台的app_key、app_secret等字段不同分享平台可能不同，详情可参考：统一表](#SocialConfiguration)
 
 
 ## <a id="interface"></a>3、ShareSDK接口的调用
