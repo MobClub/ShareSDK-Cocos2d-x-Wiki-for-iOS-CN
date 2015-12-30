@@ -27,7 +27,7 @@
 
 
 ## <a id="init"></a> 2、初始化ShareSDK并设置社交平台
-## Step 1：iOS 部分
+## iOS 部分
 
  * 1、下载的libraries文件拖拽进项目
    
@@ -95,7 +95,7 @@
 
 * 4、各个社交平台需要的配置（url schemes 等）可以参考文档中的可选配置项：[网页链接](http://wiki.mob.com/ios%E7%AE%80%E6%B4%81%E7%89%88%E5%BF%AB%E9%80%9F%E9%9B%86%E6%88%90/)
 
-## Step 2：Cocos2d-x 部分
+## Cocos2d-x 部分
 
 * 1、选择需要的平台SDK和Cocos2d-x环境
 
