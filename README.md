@@ -256,7 +256,8 @@ void shareContentResultHandler(int seqId, cn::sharesdk::C2DXResponseState state,
         default:
             break;
     }
-}```
+}
+```
 
 ## 授权
 
@@ -265,7 +266,8 @@ void shareContentResultHandler(int seqId, cn::sharesdk::C2DXResponseState state,
    ```
   reqID += 1;
     
-   C2DXShareSDK::getUserInfo(reqID, cn::sharesdk::C2DXPlatTypeSinaWeibo, getUserResultHandler);```
+   C2DXShareSDK::getUserInfo(reqID, cn::sharesdk::C2DXPlatTypeSinaWeibo, getUserResultHandler);
+   ```
 
 
 
