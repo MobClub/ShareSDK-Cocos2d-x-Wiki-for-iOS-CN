@@ -1,47 +1,138 @@
 ## ShareSDK-iOS (v3.x) for Cocos2d-x 
 * Cocos2d-x开发者方便的集成ShareSDK分享和授权功能。
 
-## Contents
-* Getting Started
-    * [功能](#Features)
-    * [ShareSDK (v3.x) for Cocos2d-x 插件目录结构](#Category structure【ShareSDK (v3.x) for Cocos2d-x Category structure】)
-    * [通用集成步骤](#common integrate)
-    * [iOS 部分集成步骤](#iOS integrate)
-    * [Option Configuration](#Option Configuration)
-* common API
-    * [ShareSDK.h](#ShareSDK.h)
-* Examples
-    * [simplyShare](#simplyShare)
-    * [showShareEditor](#showShareEditor)
+## 目录
+* Getting started
+    * [1、新建项目并下载 ShareSDK](#Download)
+    * [2、初始化ShareSDK并设置社交平台](#init)
+    * [3、ShareSDK接口的调用](#interface)
 * Notice
-    * [各个分享平台参数配置描述](#Social Platform Configuration Item Description)
-    切换Cocos2d-x 2.x和3.x
+    * [各个分享平台参数配置描述](#SocialConfiguration)
+    * [构造分享内容字段参数值](#ContentConfiguration)
+    
 
-## <a id="Features"></a>功能
-* 分享
-* 授权
 
-## <a id="Category structure【ShareSDK-iOS (v3.x) for Cocos2d-x Category structure】"></a>ShareSDK (v3.x) for Cocos2d-x 插件目录结构
+## <a id="Download"></a>1、新建项目并下载 ShareSDK
+* 1、Cocos2d-x项目环境搭建，不会的童鞋自行面壁哈: [网页链接](http://www.jianshu.com/p/676f2e9096d4).
+* 2、ShareSDK iOS版本的 Cocos2d-x 插件是在ShareSDK iOS版本基础上对接口做个C++接口的封装，是依赖ShareSDK for iOS的。所以下载ShareSDK就包含了以下2部分，下载下来的文件目录截图如下：
 
-**1、C2DXShareSDK 包含：**
+  （1）ShareSDK iOS版本的下载：[网页链接](http://www.mob.com/#/downloadDetail/ShareSDK/ios)
+  
+  （2）Cocos2d-x插件的下载: ：[网页链接](https://github.com/MobClub/New-C2DX-For-ShareSDK)
+（包含demo，需要的是C2DXShareSDK）
 
-     1. C2DXShareSDK.h :  
-     2. C2DXShareSDK.cpp : 
-     3. C2DXShareSSDKTypeDef.h :
-    iOS文件夹下包含:
-     4. C2DXiOSShareSDK.h :
-     5. C2DXiOSShareSDK.mm :
+![初始化](http://wiki.mob.com/wp-content/uploads/2015/12/tmp7f2f3116.png)
 
-## <a id="common integrate"></a> 通用集成步骤
-## Step 1：找到下载的 Sample 中的 C2DXShareSDK，拖拽 C2DXShareSDK 至项目中。
+* 将以上2个红色方框内的文件拖到新建的Cocos2d-x项目中。
 
-## Step 2：修改 AppDelegate 文件
-(1)打开 "AppDelegate.cpp"文件，导入头文件
-```cpp
-#include "C2DXShareSDK.h"
+
+## <a id="init"></a> 2、初始化ShareSDK并设置社交平台
+## Step 1：iOS 部分
+
+ * 1、下载的libraries文件拖拽进项目
+   
+  
+  ![img](http://wiki.mob.com/wp-content/uploads/2015/11/%E6%96%87%E6%A1%A32.png)
+  注意：请务必在上述步骤中选择“Create groups for any added folders”单选按钮组。如果你选择“Create folder references for any added folders”，一个蓝色的文件夹引用将被添加到项目并且将无法找到它的资源。
+
+
+
+* 2、将ShareSDK集成进项目之后如下图所示即可做下一步操作  
+
+  ![img](http://images2015.cnblogs.com/blog/708376/201512/708376-20151217215149318-1957357410.png)
+
+* 3、添加必须的依赖库
+
+ 必须添加的依赖库如下 ( Xcode 7 下 *.dylib库后缀名更改为*.tbd )：
+ 
+  ```objc
+  libicucore.dylib
+  libz.dylib
+  libstdc++.dylib
+  JavaScriptCore.framework
+  ```
+
+ 以下依赖库根据社交平台添加：
+  
+  ```objc
+  新浪微博SDK依赖库
+  
+  ImageIO.framework
+  AdSupport.framework
+  libsqlite3.dylib
+  ```
+  
+  ```objc
+  微信SDK依赖库 
+  
+  libsqlite3.dylib
+  ```
+  
+  ```objc
+  QQ好友和QQ空间SDK依赖库 
+  
+  libsqlite3.dylib
+  ```
+  
+  ```objc
+  短信和邮件需要依赖库 
+  
+  MessageUI.framework
+  ```
+  
+  ```objc
+  Google＋SDK依赖库 
+  
+  CoreMotion.framework
+  CoreLocation.framework
+  MediaPlayer.framework
+  AssetsLibrary.framework
+  ```
+
+ 添加依赖库的方法如下:
+
+ ![img](http://wiki.mob.com/wp-content/uploads/2015/09/233D16A0-E241-4D4B-ACF2-4C03259F995A.png)
+
+* 4、各个社交平台需要的配置（url schemes 等）可以参考文档中的可选配置项：[网页链接](http://wiki.mob.com/ios%E7%AE%80%E6%B4%81%E7%89%88%E5%BF%AB%E9%80%9F%E9%9B%86%E6%88%90/)
+
+## Step 2：Cocos2d-x 部分
+
+* 1、选择需要的平台SDK和Cocos2d-x环境
+
+    打开 C2DXShareSDK / iOS / C2DXiOSShareSDK.mm ，按需注释掉已导入的原生SDK库
+
+  ```
+#define IMPORT_SINA_WEIBO_LIB               //导入新浪微博库，如果不需要新浪微博客户端分享可以注释此行
+#define IMPORT_QZONE_QQ_LIB                 //导入腾讯开发平台库，如果不需要QQ空间分享、SSO或者QQ好友分享可以注释此行
+#define IMPORT_RENREN_LIB                   //导入人人库，如果不需要人人SSO，可以注释此行
+#define IMPORT_GOOGLE_PLUS_LIB              //导入Google+库，如果不需要Google+分享可以注释此行
+#define IMPORT_WECHAT_LIB                   //导入微信库，如果不需要微信分享可以注释此行
+//#define IMPORT_ALIPAY_LIB                   //导入支付宝分享库，如果不需要支付宝分享可以注释此行
+//#define IMPORT_KAKAO_LIB                    //导入Kakao库，如果不需要Kakao分享可以注释此行
 ```
-(2)在 AppDelegate::applicationDidFinishLaunching() 函数中添加 ShareSDK 各个平台的初始化函数，例如（新浪微博、QQ、微信、Facebook、Twitter)
-```cpp
+
+    打开 C2DXShareSDK / C2DXShareSDKTypeDef.h ，按需选择要使用的 Cocos2d-x的版本（切换适配Cocos2d-x 2.x 或者 3.x 版本）
+    
+    ```
+ //使用Cocoa2D-X 2.x版本环境打开下面这行注释
+ //#define UsingCocoa2DX2
+ 
+ #ifdef UsingCocoa2DX2
+ 
+ //...
+```
+
+* 2、修改 "AppDelegate" 进行初始化
+  
+  a、打开 “AppDelegate.cpp”文件，导入头文件
+
+  ```
+   #include "C2DXShareSDK.h"
+  ```
+
+  b、在 AppDelegate::applicationDidFinishLaunching() 函数中添加 ShareSDK 各个平台的初始化函数，例如（新浪微博、QQ、微信、Facebook、Twitter)
+
+  ```
     //设置平台配置
     //Platforms
     __Dictionary *totalDict = __Dictionary::create();
@@ -87,13 +178,21 @@
     stringstream twitter;
     twitter << cn::sharesdk::C2DXPlatTypeTwitter;
     totalDict->setObject(twConf, twitter.str());
+    
+    cn::sharesdk::C2DXShareSDK::registerAppAndSetPlatformConfig("8e3320a36606", totalDict); 
 ```
-Note:加链接 各个平台初始化的详细配置参数，请参考。
 
-## Step 3：分享
-(1)构造分享参数，示例如下：
-```cpp
-    reqID += 1; // 分享计数
+* [以上平台的app_key、app_secret等字段不同分享平台可能不同，详情可参考：《统一表》](#SocialConfiguration)。 
+
+
+## 3、ShareSDK接口的调用
+ 
+## 分享
+
+* 1、在需要分享操作的代码块中进行构造分享参数，示例如下：
+
+  ```
+reqID += 1; // 分享计数
     
     __Dictionary *content = __Dictionary::create();
     content -> setObject(__String::create("分享文本"), "text");  // 分享文本
@@ -102,12 +201,16 @@ Note:加链接 各个平台初始化的详细配置参数，请参考。
     content -> setObject(__String::create("http://www.mob.com"), "url"); // 分享url
     content -> setObject(__String::createWithFormat("%d", cn::sharesdk::C2DXContentTypeWebPage), "type"); // 分享类型
 ```
-(2)调用分享方法：
-```cpp
-    C2DXShareSDK::showShareMenu(reqID,NULL,content,100,100,shareContentResultHandler); // 第4，5个参数传入iPad 视图要显示的坐标点
+
+* 2、调用分享方法：
+
+  ```cpp
+    C2DXShareSDK::showShareMenu(reqID,NULL,content,100,100,shareContentResultHandler); // 第4，5个参数传入 iPad 视图要显示的坐标点，详见API说明
 ```
-(3)设置分享回调方法 shareContentResultHandler，示例如下：
-```cpp
+
+* 3、设置分享回调方法 shareContentResultHandler，示例如下：
+
+  ```
 //分享回调
 void shareContentResultHandler(int seqId, cn::sharesdk::C2DXResponseState state, cn::sharesdk::C2DXPlatType platType, __Dictionary *result)
 {
@@ -153,19 +256,22 @@ void shareContentResultHandler(int seqId, cn::sharesdk::C2DXResponseState state,
         default:
             break;
     }
-}
+}```
 
-```
+## 授权
 
-## Step 4：授权
-(1)调用授权方法
-```cpp
-    reqID += 1;
-    C2DXShareSDK::getUserInfo(reqID, cn::sharesdk::C2DXPlatTypeSinaWeibo, getUserResultHandler);
-```
+* 1、调用授权方法
 
-(2)设置获取用户数据回调 getUserResultHandler，代码如下：
-```cpp
+   ```
+  reqID += 1;
+    
+   C2DXShareSDK::getUserInfo(reqID, cn::sharesdk::C2DXPlatTypeSinaWeibo, getUserResultHandler);```
+
+
+
+* 2、设置获取用户数据回调 getUserResultHandler，代码如下：
+
+  ```cpp
 void getUserResultHandler(int reqID, C2DXResponseState state, C2DXPlatType platType, __Dictionary *result)
 {
     switch (state)
@@ -243,4 +349,36 @@ void getUserResultHandler(int reqID, C2DXResponseState state, C2DXPlatType platT
     }
 }
 ```
-## <a id="iOS integrate"></a>iOS 部分集成步骤
+
+
+
+
+
+## <a id="SocialConfiguration"></a>各个分享平台参数配置描述
+平台                 | 通用字段           | 通用字段               |通用字段             | iOS 特需           | Android 特需          |
+--------------------|------------------|-----------------------|--------------------|------------------|-----------------------|
+新浪微博              | app_key          | app_secret           |redirect_uri         | auth_type        |                      |
+腾讯微博              | app_key          | app_secret           |redirect_uri         | ––               |                      |
+豆瓣                 | api_key          | secret               | redirect_uri        | ––               |    | 
+QQ系列               | app_id           | app_key              | ––                  | auth_type        |    |
+人人网               |app_id            | app_key              |secret_key           | auth_type        |    |
+开心网               | api_key          | secret_key           |redirect_uri         | ––               |    |
+Facebook            | api_key          | app_secret           |  ––                 | auth_type        |    |
+Twitter             | consumer_key     | consumer_secret      |redirect_uri         |  ––              |    |
+GooglePlus          |client_id         | client_secret        |redirect_uri         | auth_type        |    |
+微信系列              | app_id          | app_secret           | ––                   |  ––             |    |
+Pocket              | consumer_key     | ––                   |redirect_uri         | auth_type        |    |
+Instragram          | client_id        | client_secret        |redirect_uri         |  ––              |    |
+LinkedIn            | api_key          | secret_key           |redirect_uri         |  ––              |    |
+Tumblr              | consumer_key     | consumer_secret      |callback_url         |  ––              |    |
+Flicker             | api_key          | api_secret           | ––                  |  ––              |    |
+有道                 | consumer_key     | consumer_secret      |oauth_callback       |  ––              |    |
+印象笔记Evernote      | consumer_key     |consumer_secret       |––                   | ––               |    |
+支付宝好友            | app_id           | ––                   | ––                  | ––               |    |
+Pinterest           | client_id         | ––                   |––                   | ––               |    |
+Kakao系列            | app_key          | rest_api_key         |redirect_uri         | auth_type        |     |
+Dropbox             | app_key           | app_secret           |oauth_callback      |  ––              |     |
+Vkontakte           | application_id    | secret_key           |––                   | ––              |     |
+明道                 | app_key           | app_secret           |redirect_uri        | ––              |     |
+易信                 | app_id            | app_secret           |redirect_uri        | auth_type        |     |
+Instapaper           |consumer_key      | consumer_secret      |––                 |––               |    |
