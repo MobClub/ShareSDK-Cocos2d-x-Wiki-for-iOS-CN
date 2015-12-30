@@ -185,7 +185,7 @@
 * [以上平台的app_key、app_secret等字段不同分享平台可能不同，详情可参考：《统一表》](#SocialConfiguration)。 
 
 
-## 3、ShareSDK接口的调用
+## <a id="interface"></a>3、ShareSDK接口的调用
  
 ## 分享
 
@@ -351,10 +351,6 @@ void getUserResultHandler(int reqID, C2DXResponseState state, C2DXPlatType platT
     }
 }
 ```
-
-
-
-
 
 ## <a id="SocialConfiguration"></a>各个分享平台参数配置描述
 平台                 | 通用字段           | 通用字段               |通用字段             | iOS 特需           | Android 特需          |
