@@ -179,6 +179,7 @@
     twitter << cn::sharesdk::C2DXPlatTypeTwitter;
     totalDict->setObject(twConf, twitter.str());
     
+    //在 ShareSDK 官网后台注册应用并获取Appkey，并填入此方法的第一个参数中
     cn::sharesdk::C2DXShareSDK::registerAppAndSetPlatformConfig("8e3320a36606", totalDict); 
 ```
 
