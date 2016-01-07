@@ -126,13 +126,13 @@
   
   a、打开 “AppDelegate.cpp”文件，导入头文件
 
-  ```
+  ```cpp
    #include "C2DXShareSDK.h"
   ```
 
   b、在 AppDelegate::applicationDidFinishLaunching() 函数中添加 ShareSDK 各个平台的初始化函数，例如（新浪微博、QQ、微信、Facebook、Twitter)
 
-  ```
+  ```cpp
     //设置平台配置
     //Platforms
     __Dictionary *totalDict = __Dictionary::create();
@@ -192,7 +192,7 @@
 
 * 1、在需要分享操作的代码块中进行构造分享参数，示例如下：
 
-  ```
+  ```cpp
 reqID += 1; // 分享计数
     
     __Dictionary *content = __Dictionary::create();
@@ -211,7 +211,7 @@ reqID += 1; // 分享计数
 
 * 3、设置分享回调方法 shareContentResultHandler，示例如下：
 
-  ```
+  ```cpp
 //分享回调
 void shareContentResultHandler(int seqId, cn::sharesdk::C2DXResponseState state, cn::sharesdk::C2DXPlatType platType, __Dictionary *result)
 {
@@ -264,7 +264,7 @@ void shareContentResultHandler(int seqId, cn::sharesdk::C2DXResponseState state,
 
 * 1、调用授权方法
 
-   ```
+   ```cpp
   reqID += 1;
     
    C2DXShareSDK::getUserInfo(reqID, cn::sharesdk::C2DXPlatTypeSinaWeibo, getUserResultHandler);
