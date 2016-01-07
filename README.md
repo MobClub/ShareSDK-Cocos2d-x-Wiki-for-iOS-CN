@@ -354,6 +354,7 @@ void getUserResultHandler(int reqID, C2DXResponseState state, C2DXPlatType platT
 ```
 
 ## <a id="SocialConfiguration"></a>各个分享平台参数配置描述
+各个社交平台在初始化时 app_key、app_secret等字段不同分享平台可能不同，可参考下表进行调整。
 平台                 | 通用字段           | 通用字段               |通用字段             | iOS 特需           | Android 特需          |
 --------------------|------------------|-----------------------|--------------------|------------------|-----------------------|
 新浪微博              | app_key          | app_secret           |redirect_uri         | auth_type        |                      |
