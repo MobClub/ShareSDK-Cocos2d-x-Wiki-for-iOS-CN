@@ -29,19 +29,14 @@
 ## <a id="init"></a> 2、初始化ShareSDK并设置社交平台
 ## iOS 部分
 
- * 1、下载的libraries文件拖拽进项目
+ * 1、下载的 ShareSDK 文件夹拖拽进项目
    
   
   ![img](http://wiki.mob.com/wp-content/uploads/2015/11/ShareSDK2.jpg)
   注意：请务必在上述步骤中选择“Create groups for any added folders”单选按钮组。如果你选择“Create folder references for any added folders”，一个蓝色的文件夹引用将被添加到项目并且将无法找到它的资源。
 
 
-
-* 2、将ShareSDK集成进项目之后如下图所示即可做下一步操作  
-
-  ![img](http://images2015.cnblogs.com/blog/708376/201512/708376-20151217215149318-1957357410.png)
-
-* 3、添加必须的依赖库
+* 2、添加必须的依赖库
 
  必须添加的依赖库如下 ( Xcode 7 下 *.dylib库后缀名更改为*.tbd )：
  
@@ -93,7 +88,7 @@
 
  ![img](http://wiki.mob.com/wp-content/uploads/2015/09/233D16A0-E241-4D4B-ACF2-4C03259F995A.png)
 
-* 4、各个社交平台需要的配置（url schemes 等）可以参考文档中的可选配置项：[网页链接](http://wiki.mob.com/ios%E7%AE%80%E6%B4%81%E7%89%88%E5%BF%AB%E9%80%9F%E9%9B%86%E6%88%90/)
+* 3、各个社交平台需要的配置（url schemes 等）可以参考文档中的可选配置项：[网页链接](http://wiki.mob.com/ios%E7%AE%80%E6%B4%81%E7%89%88%E5%BF%AB%E9%80%9F%E9%9B%86%E6%88%90/)
 
 ## Cocos2d-x 部分
 
