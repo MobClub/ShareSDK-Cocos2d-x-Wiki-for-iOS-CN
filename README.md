@@ -32,7 +32,7 @@
  * 1、下载的libraries文件拖拽进项目
    
   
-  ![img](http://wiki.mob.com/wp-content/uploads/2015/11/%E6%96%87%E6%A1%A32.png)
+  ![img](http://wiki.mob.com/wp-content/uploads/2015/11/ShareSDK2.jpg)
   注意：请务必在上述步骤中选择“Create groups for any added folders”单选按钮组。如果你选择“Create folder references for any added folders”，一个蓝色的文件夹引用将被添加到项目并且将无法找到它的资源。
 
 
