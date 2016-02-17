@@ -53,7 +53,6 @@
   新浪微博SDK依赖库
   
   ImageIO.framework
-  AdSupport.framework
   libsqlite3.dylib
   ```
   
