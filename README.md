@@ -105,16 +105,10 @@
 //#define IMPORT_KAKAO_LIB                    //导入Kakao库，如果不需要Kakao分享可以注释此行
 ```
 
-    打开 C2DXShareSDK / C2DXShareSDKTypeDef.h ，按需选择要使用的 Cocos2d-x的版本（切换适配Cocos2d-x 2.x 或者 3.x 版本）
+   ~~打开 C2DXShareSDK / C2DXShareSDKTypeDef.h ，按需选择要使用的 Cocos2d-x的版本（切换适配Cocos2d-x 2.x 或者 3.x 版本）~~
+   
+   上面这一步已经不再需要，C2DXShareSDKTypeDef.h里面会根据`COCOS2D_VERSION`自动判断Cocos2d-x的版本。
     
-    ```
- //使用Cocoa2D-X 2.x版本环境打开下面这行注释
- //#define UsingCocoa2DX2
- 
- #ifdef UsingCocoa2DX2
- 
- //...
-```
 
 * 2、修改 "AppDelegate" 进行初始化
   
@@ -129,46 +123,46 @@
   ```cpp
     //设置平台配置
     //Platforms
-    __Dictionary *totalDict = __Dictionary::create();
+    C2DXDictionary *totalDict = C2DXDictionary::create();
     
     //新浪微博
-    __Dictionary *sinaWeiboConf= __Dictionary::create();
-    sinaWeiboConf->setObject(__String::create("568898243"), "app_key");
-    sinaWeiboConf->setObject(__String::create("38a4f8204cc784f81f9f0daaf31e02e3"), "app_secret");
-    sinaWeiboConf->setObject(__String::create("http://www.sharesdk.cn"), "redirect_uri");
+    C2DXDictionary *sinaWeiboConf= C2DXDictionary::create();
+    sinaWeiboConf->setObject(C2DXString::create("568898243"), "app_key");
+    sinaWeiboConf->setObject(C2DXString::create("38a4f8204cc784f81f9f0daaf31e02e3"), "app_secret");
+    sinaWeiboConf->setObject(C2DXString::create("http://www.sharesdk.cn"), "redirect_uri");
     stringstream sina;
     sina << cn::sharesdk::C2DXPlatTypeSinaWeibo;
     totalDict->setObject(sinaWeiboConf, sina.str());
     
     //微信
-    __Dictionary *wechatConf = __Dictionary::create();
-    wechatConf->setObject(__String::create("wx4868b35061f87885"), "app_id");
-    wechatConf->setObject(__String::create("64020361b8ec4c99936c0e3999a9f249"), "app_secret");
+    C2DXDictionary *wechatConf = C2DXDictionary::create();
+    wechatConf->setObject(C2DXString::create("wx4868b35061f87885"), "app_id");
+    wechatConf->setObject(C2DXString::create("64020361b8ec4c99936c0e3999a9f249"), "app_secret");
     stringstream wechat;
     wechat << cn::sharesdk::C2DXPlatTypeWechatPlatform;
     totalDict->setObject(wechatConf, wechat.str());
     
     //QQ
-    __Dictionary *qqConf = __Dictionary::create();
-    qqConf->setObject(__String::create("100371282"), "app_id");
-    qqConf->setObject(__String::create("aed9b0303e3ed1e27bae87c33761161d"), "app_key");
+    C2DXDictionary *qqConf = C2DXDictionary::create();
+    qqConf->setObject(C2DXString::create("100371282"), "app_id");
+    qqConf->setObject(C2DXString::create("aed9b0303e3ed1e27bae87c33761161d"), "app_key");
     stringstream qq;
     qq << cn::sharesdk::C2DXPlatTypeQQPlatform;
     totalDict->setObject(qqConf, qq.str());
     
     //Facebook
-    __Dictionary *fbConf = __Dictionary::create();
-    fbConf->setObject(__String::create("107704292745179"), "api_key");
-    fbConf->setObject(__String::create("38053202e1a5fe26c80c753071f0b573"), "app_secret");
+    C2DXDictionary *fbConf = C2DXDictionary::create();
+    fbConf->setObject(C2DXString::create("107704292745179"), "api_key");
+    fbConf->setObject(C2DXString::create("38053202e1a5fe26c80c753071f0b573"), "app_secret");
     stringstream facebook;
     facebook << cn::sharesdk::C2DXPlatTypeFacebook;
     totalDict->setObject(fbConf, facebook.str());
     
     //Twitter
-    __Dictionary *twConf = __Dictionary::create();
-    twConf->setObject(__String::create("LRBM0H75rWrU9gNHvlEAA2aOy"), "consumer_key");
-    twConf->setObject(__String::create("gbeWsZvA9ELJSdoBzJ5oLKX0TU09UOwrzdGfo9Tg7DjyGuMe8G"), "consumer_secret");
-    twConf->setObject(__String::create("http://www.mob.com"), "redirect_uri");
+    C2DXDictionary *twConf = C2DXDictionary::create();
+    twConf->setObject(C2DXString::create("LRBM0H75rWrU9gNHvlEAA2aOy"), "consumer_key");
+    twConf->setObject(C2DXString::create("gbeWsZvA9ELJSdoBzJ5oLKX0TU09UOwrzdGfo9Tg7DjyGuMe8G"), "consumer_secret");
+    twConf->setObject(C2DXString::create("http://www.mob.com"), "redirect_uri");
     stringstream twitter;
     twitter << cn::sharesdk::C2DXPlatTypeTwitter;
     totalDict->setObject(twConf, twitter.str());
@@ -187,27 +181,27 @@
 * 1、在需要分享操作的代码块中进行构造分享参数，示例如下：
 
   ```cpp
-reqID += 1; // 分享计数
+   // reqID += 1; // 分享计数.  现在已经不需要了，这个字段现在封装在了C2DXShareSDK.cpp中。
     
-    __Dictionary *content = __Dictionary::create();
-    content -> setObject(__String::create("分享文本"), "text");  // 分享文本
-    content -> setObject(__String::create("HelloWorld.png"), "image");// 分享图片
-    content -> setObject(__String::create("测试标题"), "title"); // 分享标题
-    content -> setObject(__String::create("http://www.mob.com"), "url"); // 分享url
-    content -> setObject(__String::createWithFormat("%d", cn::sharesdk::C2DXContentTypeWebPage), "type"); // 分享类型
+    C2DXDictionary *content = C2DXDictionary::create();
+    content -> setObject(C2DXString::create("分享文本"), "text");  // 分享文本
+    content -> setObject(C2DXString::create("HelloWorld.png"), "image");// 分享图片
+    content -> setObject(C2DXString::create("测试标题"), "title"); // 分享标题
+    content -> setObject(C2DXString::create("http://www.mob.com"), "url"); // 分享url
+    content -> setObject(C2DXString::createWithFormat("%d", cn::sharesdk::C2DXContentTypeWebPage), "type"); // 分享类型
 ```
 
 * 2、调用分享方法：
 
   ```cpp
-    C2DXShareSDK::showShareMenu(reqID,NULL,content,100,100,shareContentResultHandler); // 第4，5个参数传入 iPad 视图要显示的坐标点，详见API说明
+    C2DXShareSDK::showShareMenu(NULL,content,100,100,shareContentResultHandler); // 第4，5个参数传入 iPad 视图要显示的坐标点，详见API说明
 ```
 
 * 3、设置分享回调方法 shareContentResultHandler，示例如下：
 
   ```cpp
 //分享回调
-void shareContentResultHandler(int seqId, cn::sharesdk::C2DXResponseState state, cn::sharesdk::C2DXPlatType platType, __Dictionary *result)
+void shareContentResultHandler(int seqId, cn::sharesdk::C2DXResponseState state, cn::sharesdk::C2DXPlatType platType, C2DXDictionary *result)
 {
     switch (state)
     {
@@ -220,25 +214,25 @@ void shareContentResultHandler(int seqId, cn::sharesdk::C2DXResponseState state,
         {
             log("Fail");
             //回调错误信息
-            __Array *allKeys = result->allKeys();
+            C2DXArray *allKeys = result->allKeys();
             allKeys->retain();
             for (int i = 0; i < allKeys-> count(); i++)
             {
-                __String *key = (__String*)allKeys->getObjectAtIndex(i);
+                C2DXString *key = (C2DXString*)allKeys->getObjectAtIndex(i);
                 Ref *obj = result->objectForKey(key->getCString());
                 
                 log("key = %s", key -> getCString());
-                if (dynamic_cast<__String *>(obj))
+                if (dynamic_cast<C2DXString *>(obj))
                 {
-                    log("value = %s", dynamic_cast<__String *>(obj) -> getCString());
+                    log("value = %s", dynamic_cast<C2DXString *>(obj) -> getCString());
                 }
-                else if (dynamic_cast<__Integer *>(obj))
+                else if (dynamic_cast<C2DXInteger *>(obj))
                 {
-                    log("value = %d", dynamic_cast<__Integer *>(obj) -> getValue());
+                    log("value = %d", dynamic_cast<C2DXInteger *>(obj) -> getValue());
                 }
-                else if (dynamic_cast<__Double *>(obj))
+                else if (dynamic_cast<C2DXDouble *>(obj))
                 {
-                    log("value = %f", dynamic_cast<__Double *>(obj) -> getValue());
+                    log("value = %f", dynamic_cast<C2DXDouble *>(obj) -> getValue());
                 }
             }
         }
@@ -259,9 +253,9 @@ void shareContentResultHandler(int seqId, cn::sharesdk::C2DXResponseState state,
 * 1、调用授权方法
 
    ```cpp
-  reqID += 1;
+   // reqID += 1;  // 现在已经不需要了，这个字段现在封装在了C2DXShareSDK.cpp中
     
-   C2DXShareSDK::getUserInfo(reqID, cn::sharesdk::C2DXPlatTypeSinaWeibo, getUserResultHandler);
+   C2DXShareSDK::getUserInfo(cn::sharesdk::C2DXPlatTypeSinaWeibo, getUserResultHandler);
    ```
 
 
@@ -269,7 +263,7 @@ void shareContentResultHandler(int seqId, cn::sharesdk::C2DXResponseState state,
 * 2、设置获取用户数据回调 getUserResultHandler，代码如下：
 
   ```cpp
-void getUserResultHandler(int reqID, C2DXResponseState state, C2DXPlatType platType, __Dictionary *result)
+void getUserResultHandler(int reqID, C2DXResponseState state, C2DXPlatType platType, C2DXDictionary *result)
 {
     switch (state)
     {
@@ -280,25 +274,25 @@ void getUserResultHandler(int reqID, C2DXResponseState state, C2DXPlatType platT
             //输出信息
             try
             {
-                __Array *allKeys = result -> allKeys();
+                C2DXArray *allKeys = result -> allKeys();
                 allKeys->retain();
                 for (int i = 0; i < allKeys -> count(); i++)
                 {
-                    __String *key = (__String *)allKeys -> getObjectAtIndex(i);
+                    C2DXString *key = (C2DXString *)allKeys -> getObjectAtIndex(i);
                     Ref *obj = result -> objectForKey(key -> getCString());
                     
                     log("key = %s", key -> getCString());
-                    if (dynamic_cast<__String *>(obj))
+                    if (dynamic_cast<C2DXString *>(obj))
                     {
-                        log("value = %s", dynamic_cast<__String *>(obj) -> getCString());
+                        log("value = %s", dynamic_cast<C2DXString *>(obj) -> getCString());
                     }
-                    else if (dynamic_cast<__Integer *>(obj))
+                    else if (dynamic_cast<C2DXInteger *>(obj))
                     {
-                        log("value = %d", dynamic_cast<__Integer *>(obj) -> getValue());
+                        log("value = %d", dynamic_cast<C2DXInteger *>(obj) -> getValue());
                     }
-                    else if (dynamic_cast<__Double *>(obj))
+                    else if (dynamic_cast<C2DXDouble *>(obj))
                     {
-                        log("value = %f", dynamic_cast<__Double *>(obj) -> getValue());
+                        log("value = %f", dynamic_cast<C2DXDouble *>(obj) -> getValue());
                     }
                 }
                 allKeys->release();
@@ -313,25 +307,25 @@ void getUserResultHandler(int reqID, C2DXResponseState state, C2DXPlatType platT
         {
             log("Fail");
             //回调错误信息
-            __Array *allKeys = result->allKeys();
+            C2DXArray *allKeys = result->allKeys();
             allKeys->retain();
             for (int i = 0; i < allKeys-> count(); i++)
             {
-                __String *key = (__String*)allKeys->getObjectAtIndex(i);
+                C2DXString *key = (C2DXString*)allKeys->objectAtIndex(i);
                 Ref *obj = result->objectForKey(key->getCString());
                 
                 log("key = %s", key -> getCString());
-                if (dynamic_cast<__String *>(obj))
+                if (dynamic_cast<C2DXString *>(obj))
                 {
-                    log("value = %s", dynamic_cast<__String *>(obj) -> getCString());
+                    log("value = %s", dynamic_cast<C2DXString *>(obj) -> getCString());
                 }
-                else if (dynamic_cast<__Integer *>(obj))
+                else if (dynamic_cast<C2DXInteger *>(obj))
                 {
-                    log("value = %d", dynamic_cast<__Integer *>(obj) -> getValue());
+                    log("value = %d", dynamic_cast<C2DXInteger *>(obj) -> getValue());
                 }
-                else if (dynamic_cast<__Double *>(obj))
+                else if (dynamic_cast<C2DXDouble *>(obj))
                 {
-                    log("value = %f", dynamic_cast<__Double *>(obj) -> getValue());
+                    log("value = %f", dynamic_cast<C2DXDouble *>(obj) -> getValue());
                 }
             }
         }
