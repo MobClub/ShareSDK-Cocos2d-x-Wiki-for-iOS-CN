@@ -29,6 +29,9 @@
 ## <a id="init"></a> 2、初始化ShareSDK并设置社交平台
 ## iOS 部分
 
+ShareSDK v4.0.0及 需要在Info.plist 中设置MOBAppKey 和 MOBAppSecret
+![(setappkey)](http://wiki.mob.com/wp-content/uploads/2017/06/appkey.jpeg)
+
  * 1、下载的 ShareSDK 文件夹拖拽进项目
    
   
